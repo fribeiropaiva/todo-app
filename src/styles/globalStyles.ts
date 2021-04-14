@@ -52,10 +52,10 @@ export default createGlobalStyle`
         color: white;
         transition: 0.4s;
       }
-    }
 
-    button:focus {
-      outline: none;
+      &:focus {
+        outline: none;
+      }
     }
 
     .new-task-input {
@@ -63,6 +63,10 @@ export default createGlobalStyle`
       border-radius: 6px;
       border-style: groove;
       padding: 5px;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     .add-task-button {
