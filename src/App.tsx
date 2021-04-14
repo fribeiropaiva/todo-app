@@ -1,7 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import GlobalStyles from './styles/globalStyles';
 
 function App() {
+  const [activeTasks, setActiveTasks] = useState([]);
+  const [allTasks, setAllTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
+  const [tasksListHeader, setTasksListHeader] = useState('No tasks');
+
   return (
     <>
       <main>
@@ -14,8 +19,8 @@ function App() {
           <button>Show active tasks</button>
           <button>Show completed tasks</button>
         </div>
-        <h2>3 tasks remaining</h2>
-        <ul>
+        <h2>{tasksListHeader}</h2>
+        {/* <ul>
           <li>
             <input type='checkbox'></input>
             Eat
@@ -34,7 +39,7 @@ function App() {
             <button>Edit</button>
             <button>Delete</button>
           </li>
-        </ul>
+        </ul> */}
         <GlobalStyles />
       </main>
     </>
