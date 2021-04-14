@@ -1,11 +1,20 @@
 import { useState } from 'react';
 import GlobalStyles from './styles/globalStyles';
+import { Task } from './components/Task/Task';
 
 function App() {
   const [activeTasks, setActiveTasks] = useState([]);
   const [allTasks, setAllTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
   const [tasksListHeader, setTasksListHeader] = useState('No tasks');
+
+  function editTask(id:number) {
+    console.log('editing task');
+  }
+
+  function deleteTask(id:number) {
+    console.log('deleting task');
+  }
 
   return (
     <>
@@ -20,26 +29,7 @@ function App() {
           <button>Show completed tasks</button>
         </div>
         <h2>{tasksListHeader}</h2>
-        {/* <ul>
-          <li>
-            <input type='checkbox'></input>
-            Eat
-            <button>Edit</button>
-            <button>Delete</button>
-          </li>
-          <li>
-            <input type='checkbox'></input>
-            Sleep
-            <button>Edit</button>
-            <button>Delete</button>
-          </li>
-          <li>
-            <input type='checkbox'></input>
-            Repeat
-            <button>Edit</button>
-            <button>Delete</button>
-          </li>
-        </ul> */}
+        <Task taskName='Eat' editTask={editTask} deleteTask={deleteTask} isChecked={true} />
         <GlobalStyles />
       </main>
     </>
