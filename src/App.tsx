@@ -8,7 +8,7 @@ function App() {
         <h1>To Do List</h1>
         <h2>What needs to be done?</h2>
         <input className='new-task-input'></input>
-        <button className='add-task-button'>Add</button>
+        <button className='add-task-button'>+</button>
         <div className='tasks-buttons-container'>
           <button>Show all tasks</button>
           <button>Show active tasks</button>

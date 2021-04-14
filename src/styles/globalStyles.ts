@@ -16,6 +16,7 @@ export default createGlobalStyle`
     background-color: #f2f2f2;
     width: 100%;
     height: 100%;
+    font-family: sans-serif;
 
     #root {
       width: 100%;
@@ -42,8 +43,19 @@ export default createGlobalStyle`
       cursor: pointer;
       padding: 7px;
       border-radius: 6px;
-      border: none;
+      border: 1px solid #6c757d;
+      background: none;
       color: black;
+
+      &:hover {
+        background-color: #6c757d;
+        color: white;
+        transition: 0.4s;
+      }
+    }
+
+    button:focus {
+      outline: none;
     }
 
     .new-task-input {
@@ -54,8 +66,16 @@ export default createGlobalStyle`
     }
 
     .add-task-button {
+      font-size: 1.5rem;
+      padding: 1px 7px;
+      background-color: #007bff;
       border: none;
+      color: white;
 
+      &:hover {
+        background-color: #0062cc;
+        transition: 0.4s;
+      }
     }
 
     .tasks-buttons-container {
@@ -64,11 +84,6 @@ export default createGlobalStyle`
 
       button + button {
         margin-left: 10px;
-      }
-
-      button:nth-child(3) {
-        background-color: #28a745;
-        color: white;
       }
     }
   }
