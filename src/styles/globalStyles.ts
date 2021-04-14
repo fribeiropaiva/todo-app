@@ -43,8 +43,7 @@ export default createGlobalStyle`
       padding: 7px;
       border-radius: 6px;
       border: none;
-      color: white;
-      background-color: #007bff;
+      color: black;
     }
 
     .new-task-input {
@@ -60,12 +59,16 @@ export default createGlobalStyle`
     }
 
     .tasks-buttons-container {
+      margin-top: 10px;
+      margin-bottom: 30px;
+
       button + button {
         margin-left: 10px;
       }
 
-      &:nth-child(1) {
-        background-color: #17a2b8;
+      button:nth-child(3) {
+        background-color: #28a745;
+        color: white;
       }
     }
   }
