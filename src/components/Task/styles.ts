@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const TaskContainer = styled.li`
+  margin-bottom: 15px;
   list-style: none;
   display: flex;
   align-items: center;
