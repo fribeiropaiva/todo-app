@@ -1,4 +1,5 @@
 import React from 'react';
+import { TaskContainer } from './styles';
 
 interface TaskProps {
   taskName: string;
@@ -9,11 +10,21 @@ interface TaskProps {
 
 export function Task({ taskName, isChecked, editTask, deleteTask }: TaskProps) {
   return (
-    <li key={taskName} id={taskName}>
-      <input type='checkbox' />
-      {taskName}
-      <button>Edit</button>
-      <button>Delete</button>
-    </li>
+    <TaskContainer key={taskName} id={taskName}>
+      <div className='task-check'>
+        <label className='checkbox-container'>
+          <input
+            type='checkbox'
+            readOnly
+          />
+          <span className='checkmark'></span>
+        </label>
+        <p>{taskName}</p>
+      </div>
+      <div className='action-buttons'>
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+    </TaskContainer>
   )
 }
