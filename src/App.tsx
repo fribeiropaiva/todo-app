@@ -52,11 +52,16 @@ function App() {
   }
 
   function editTask(id:number) {
-    console.log('editing task');
+    console.log('editing task ' + id);
   }
 
-  function deleteTask(id:number) {
-    console.log('deleting task');
+  function deleteTask(deletedId:number) {
+    const updatedTasks = allTasks.filter(task => task.id !== deletedId);
+    setIds(ids.filter(id => id !== deletedId));
+
+    setAllTasks(updatedTasks);
+    setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
+    setCompletedTasks(updatedTasks.filter(task => task.isCompleted == true));
   }
 
   return (

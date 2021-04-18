@@ -17,6 +17,7 @@ export function Task({id, taskName, isChecked, editTask, deleteTask, handleTaskC
         <label className='checkbox-container'>
           <input
             type='checkbox'
+            readOnly
             checked={isChecked}
             onChange={() => handleTaskCompletion(id)}
           />
@@ -25,8 +26,8 @@ export function Task({id, taskName, isChecked, editTask, deleteTask, handleTaskC
         <p>{taskName}</p>
       </div>
       <div className='action-buttons'>
-        <button>Edit</button>
-        <button>Delete</button>
+        <button type='button' onClick={() => editTask(id)}>Edit</button>
+        <button type='button' onClick={() => deleteTask(id)}>Delete</button>
       </div>
     </TaskContainer>
   )
