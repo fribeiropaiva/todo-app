@@ -40,14 +40,14 @@ function App() {
   function handleTaskCompletion(id:number) {
     const updatedTasks = allTasks.map(task => {
       if (task.id === id) {
+        setCompletedTasks([...completedTasks, {...task, isCompleted: !task.isCompleted }]);
         return {...task, isCompleted: !task.isCompleted }
       }
        return task;
     });
 
     setAllTasks(updatedTasks);
-    setActiveTasks(allTasks.filter(task => task.isCompleted == false));
-    setCompletedTasks(allTasks.filter(task => task.isCompleted == true));
+    setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
   }
 
   function editTask(id:number) {
@@ -73,12 +73,18 @@ function App() {
           onClick={addTask}
           >+</button>
         <div className='tasks-buttons-container'>
-          <button>Show all tasks</button>
-          <button>Show active tasks</button>
-          <button>Show completed tasks</button>
+          <button type='button' onClick={() => setTasksListHeader('All Tasks')}>Show all tasks</button>
+          <button type='button' onClick={() => setTasksListHeader('Active Tasks')}>Show active tasks</button>
+          <button type='button' onClick={() => setTasksListHeader('Completed Tasks')}>Show completed tasks</button>
         </div>
         <h2>{tasksListHeader}</h2>
         {(tasksListHeader == 'All Tasks') && allTasks.map(task => (
+          <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
+        ))}
+        {(tasksListHeader == 'Active Tasks') && activeTasks.map(task => (
+          <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
+        ))}
+        {(tasksListHeader == 'Completed Tasks') && completedTasks.map(task => (
           <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
         ))}
         <GlobalStyles />
