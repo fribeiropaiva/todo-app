@@ -37,6 +37,19 @@ function App() {
     setNewTask('');
   }
 
+  function handleTaskCompletion(id:number) {
+    const updatedTasks = allTasks.map(task => {
+      if (task.id === id) {
+        return {...task, isCompleted: !task.isCompleted }
+      }
+       return task;
+    });
+
+    setAllTasks(updatedTasks);
+    setActiveTasks(allTasks.filter(task => task.isCompleted == false));
+    setCompletedTasks(allTasks.filter(task => task.isCompleted == true));
+  }
+
   function editTask(id:number) {
     console.log('editing task');
   }
@@ -66,7 +79,7 @@ function App() {
         </div>
         <h2>{tasksListHeader}</h2>
         {(tasksListHeader == 'All Tasks') && allTasks.map(task => (
-          <Task key={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} isChecked={task.isCompleted} />
+          <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
         ))}
         <GlobalStyles />
       </main>
