@@ -32,6 +32,7 @@ function App() {
       title: newTask,
       isCompleted: false
     }
+
     setActiveTasks([...activeTasks, task]);
     setAllTasks([...allTasks, task]);
     setNewTask('');
