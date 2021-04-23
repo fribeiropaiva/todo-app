@@ -33,15 +33,15 @@ function App() {
       isCompleted: false
     }
 
-    setActiveTasks([...activeTasks, task]);
-    setAllTasks([...allTasks, task]);
+    setActiveTasks((previousState) => [...previousState, task]);
+    setAllTasks((previousState) => [...previousState, task]);
     setNewTask('');
   }
 
   function handleTaskCompletion(id:number) {
     const updatedTasks = allTasks.map(task => {
       if (task.id === id) {
-        setCompletedTasks([...completedTasks, {...task, isCompleted: !task.isCompleted }]);
+        setCompletedTasks((previousState) => [...previousState, {...task, isCompleted: !task.isCompleted }]);
         return {...task, isCompleted: !task.isCompleted }
       }
        return task;
