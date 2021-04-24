@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GlobalStyles from './styles/globalStyles';
 import { Task } from './components/Task/Task';
 
@@ -15,6 +15,28 @@ function App() {
   const [completedTasks, setCompletedTasks] = useState<TaskProperties[]>([]);
   const [tasksListHeader, setTasksListHeader] = useState<string>('All Tasks');
   const [ids, setIds] = useState<number[]>([]);
+
+  function updateCache(newState: TaskProperties[]) {
+    try {
+      localStorage.setItem('allTasks', JSON.stringify(newState));
+    } catch(e) {
+      console.error('Unable to restore data from cache.', e);
+    }
+  }
+
+  useEffect(() => {
+    try {
+      const cachedData = localStorage.getItem('allTasks');
+      if (cachedData) {
+        const cachedTasks = JSON.parse(cachedData);
+        setAllTasks(cachedTasks);
+        setActiveTasks(cachedTasks.filter((task:TaskProperties) => task.isCompleted == false));
+        setCompletedTasks(cachedTasks.filter((task:TaskProperties) => task.isCompleted == true));
+      }
+    } catch(e) {
+      console.error('Unable to restore data from cache.', e);
+    }
+  }, [])
 
   function generateTaskId() {
     const newId = Math.floor(Math.random() * 100 + 1);
@@ -36,6 +58,8 @@ function App() {
     setActiveTasks((previousState) => [...previousState, task]);
     setAllTasks((previousState) => [...previousState, task]);
     setNewTask('');
+
+    updateCache([...allTasks, task])
   }
 
   function handleTaskCompletion(id:number) {
@@ -49,6 +73,8 @@ function App() {
 
     setAllTasks(updatedTasks);
     setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
+
+    updateCache(updatedTasks);
   }
 
   function editTask(id:number, newTaskTitle:string) {
@@ -61,6 +87,8 @@ function App() {
     });
 
     setAllTasks(updatedTasks);
+
+    updateCache(updatedTasks);
   }
 
   function deleteTask(deletedId:number) {
@@ -70,6 +98,8 @@ function App() {
     setAllTasks(updatedTasks);
     setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
     setCompletedTasks(updatedTasks.filter(task => task.isCompleted == true));
+
+    updateCache(updatedTasks);
   }
 
   return (
