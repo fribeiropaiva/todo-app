@@ -51,8 +51,16 @@ function App() {
     setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
   }
 
-  function editTask(id:number) {
-    console.log('editing task ' + id);
+  function editTask(id:number, newTaskTitle:string) {
+    const updatedTasks = allTasks.filter(task => {
+      if (task.id === id) {
+        task.title = newTaskTitle;
+        return task;
+      }
+      return task;
+    });
+
+    setAllTasks(updatedTasks);
   }
 
   function deleteTask(deletedId:number) {

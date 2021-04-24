@@ -69,6 +69,22 @@ export const TaskContainer = styled.li`
     }
   }
 
+  .task-editing-input {
+    margin-right: 10px;
+    border-radius: 6px;
+    border-style: groove;
+    padding: 3px;
+  }
+
+  .save-task-editing {
+    padding: 5px;
+    &:hover {
+      background-color: #ffc107;
+      border: 1px solid #ffc107;
+      color: initial;
+    }
+  }
+
   .action-buttons {
     button:nth-child(1) {
       margin-right: 10px;
