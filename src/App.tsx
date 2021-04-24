@@ -16,6 +16,20 @@ function App() {
   const [tasksListHeader, setTasksListHeader] = useState<string>('All Tasks');
   const [ids, setIds] = useState<number[]>([]);
 
+  useEffect(() => {
+    try {
+      const cachedData = localStorage.getItem('allTasks');
+      if (cachedData) {
+        const cachedTasks = JSON.parse(cachedData);
+        setAllTasks(cachedTasks);
+        setActiveTasks(cachedTasks.filter((task:TaskProperties) => task.isCompleted === false));
+        setCompletedTasks(cachedTasks.filter((task:TaskProperties) => task.isCompleted === true));
+      }
+    } catch(e) {
+      console.error('Unable to restore data from cache.', e);
+    }
+  }, []);
+
   function updateCache(newState: TaskProperties[]) {
     try {
       localStorage.setItem('allTasks', JSON.stringify(newState));
@@ -23,20 +37,6 @@ function App() {
       console.error('Unable to restore data from cache.', e);
     }
   }
-
-  useEffect(() => {
-    try {
-      const cachedData = localStorage.getItem('allTasks');
-      if (cachedData) {
-        const cachedTasks = JSON.parse(cachedData);
-        setAllTasks(cachedTasks);
-        setActiveTasks(cachedTasks.filter((task:TaskProperties) => task.isCompleted == false));
-        setCompletedTasks(cachedTasks.filter((task:TaskProperties) => task.isCompleted == true));
-      }
-    } catch(e) {
-      console.error('Unable to restore data from cache.', e);
-    }
-  }, [])
 
   function generateTaskId() {
     const newId = Math.floor(Math.random() * 100 + 1);
@@ -72,7 +72,7 @@ function App() {
     });
 
     setAllTasks(updatedTasks);
-    setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
+    setActiveTasks(updatedTasks.filter(task => task.isCompleted === false));
 
     updateCache(updatedTasks);
   }
@@ -96,8 +96,8 @@ function App() {
     setIds(ids.filter(id => id !== deletedId));
 
     setAllTasks(updatedTasks);
-    setActiveTasks(updatedTasks.filter(task => task.isCompleted == false));
-    setCompletedTasks(updatedTasks.filter(task => task.isCompleted == true));
+    setActiveTasks(updatedTasks.filter(task => task.isCompleted === false));
+    setCompletedTasks(updatedTasks.filter(task => task.isCompleted === true));
 
     updateCache(updatedTasks);
   }
@@ -122,13 +122,13 @@ function App() {
           <button type='button' onClick={() => setTasksListHeader('Completed Tasks')}>Show completed tasks</button>
         </div>
         <h2>{tasksListHeader}</h2>
-        {(tasksListHeader == 'All Tasks') && allTasks.map(task => (
+        {(tasksListHeader === 'All Tasks') && allTasks.map(task => (
           <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
         ))}
-        {(tasksListHeader == 'Active Tasks') && activeTasks.map(task => (
+        {(tasksListHeader === 'Active Tasks') && activeTasks.map(task => (
           <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
         ))}
-        {(tasksListHeader == 'Completed Tasks') && completedTasks.map(task => (
+        {(tasksListHeader === 'Completed Tasks') && completedTasks.map(task => (
           <Task key={task.id} id={task.id} taskName={task.title} editTask={editTask} deleteTask={deleteTask} handleTaskCompletion={handleTaskCompletion} isChecked={task.isCompleted} />
         ))}
         <GlobalStyles />

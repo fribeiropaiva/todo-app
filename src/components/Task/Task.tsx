@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TaskContainer } from './styles';
-
 interface TaskProps {
   id: number;
   taskName: string;
